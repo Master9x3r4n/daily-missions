@@ -1,16 +1,18 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+"""
+1. Provision to add missions
+2. Provision to mark missions as complete
+3. Provision to save missions via files
+4. Provision to reset mission progress
+5. Provision to delete missions
+6. Provision to load mission data from files
+"""
 
+from mission_manager import MissionManager
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    mm = MissionManager()
+    mm.add_mission("Walker", "Take a long walk")
+    mm.print_missions()
+    mm.delete_mission("Walker")
+    mm.print_missions()
