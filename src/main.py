@@ -8,11 +8,10 @@
 6. Provision to load mission data from files
 """
 
+import pygame as pg
 from mission_manager import MissionManager
+data_path = "data.txt"
 
 if __name__ == "__main__":
     mm = MissionManager()
-    mm.add_mission("Walker", "Take a long walk")
-    mm.print_missions()
-    mm.delete_mission("Walker")
-    mm.print_missions()
+
