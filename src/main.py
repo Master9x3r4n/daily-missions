@@ -20,11 +20,11 @@ def add_mission(mm: MissionManager):
     print("###########################")
     print("#    ADD A NEW MISSION    #")
     print("###########################")
-    name = input("Input new mission name (max 14 chars): ")
+    name = input(f"Input new mission name (max {TITLE_LIMIT} chars): ")
     if mm.search_mission_name(name, warn = False):
         print("ERROR: INVALID NAME. MISSION ALREADY EXISTS")
     else:
-        desc = input("Input mission description (max 200 chars): ")
+        desc = input(f"Input mission description (max {DESC_LIMIT} chars): ")
         mm.add_mission(name[:TITLE_LIMIT], desc[:DESC_LIMIT])
 
 def delete_mission(mm: MissionManager):
