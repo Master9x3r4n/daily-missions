@@ -63,7 +63,9 @@ if __name__ == "__main__":
     screen = SurfaceManager()
 
     #load mission data
+    mm.order_missions()
     mm.update_missions(data_path)
+    update(mm)
 
     # initialize variables
     program_running = True

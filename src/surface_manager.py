@@ -185,10 +185,10 @@ class SurfaceManager:
                 desc_text = missions[card_index].description[:DESC_LIMIT]
 
                 self.draw_text_wrapped(title_text, title_font, font_color,
-                                       (11 + 285 * i + 24, base_y + 8 + 16, 275 - 32, 392 - 104))
+                                       (11 + 285 * i + 24, base_y + 8 + 16, 275 - 36, 392 - 104))
 
                 self.draw_text_wrapped(desc_text, desc_font, font_color,
-                                       (11 + 285 * i + 24, base_y + 8 + 52, 275 - 32, 392 - 104))
+                                       (11 + 285 * i + 24, base_y + 8 + 52, 275 - 36, 392 - 104))
 
             #Draw card buttons
             self.draw_circle("#AAFFAA", 11 + 285 * i + 275 - 48, base_y + 400 - 48, 32)
