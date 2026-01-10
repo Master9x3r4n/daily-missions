@@ -1,5 +1,6 @@
 import pygame as pg
 from button import Button
+from mission_manager import Mission
 
 pg.init()
 pg.font.init()
@@ -42,6 +43,36 @@ class SurfaceManager:
 
     def create_button (self, button_color, x, y, text = "", font_color = "#000000", font_size = 64):
         return Button(x, y, text = text, font_size = font_size, color= button_color, text_color= font_color, surface=self.SURFACE)
+
+    #These two functions of wrap_text were vibecoded
+    def wrap_text(self, text, font, max_width):
+        words = text.split(" ")
+        lines = []
+        current_line = ""
+
+        for word in words:
+            test_line = current_line + word + " "
+            if font.size(test_line)[0] <= max_width:
+                current_line = test_line
+            else:
+                lines.append(current_line.rstrip())
+                current_line = word + " "
+
+        if current_line:
+            lines.append(current_line.rstrip())
+
+        return lines
+
+    def draw_text_wrapped(self, text, font, color, rect, line_spacing=2):
+        x, y, width, height = rect
+        lines = self.wrap_text(text, font, width)
+
+        line_height = font.get_height()
+        for line in lines:
+            self.SURFACE.blit(font.render(line, True, color), (x, y))
+            y += line_height + line_spacing
+            if y > rect[1] + height:
+                break
 
     ##################
     #     BUTTON     #
@@ -126,7 +157,7 @@ class SurfaceManager:
         self.draw_circle("#7E6D4B", 136 * self.WR, 148 * self.HR, 65)
 
 
-    def draw_mission_panel(self, card_count = 4, page = 1, missions = None):
+    def draw_mission_panel(self, card_count = 4, page = 1, missions: list[Mission] = None):
         base_y = 264 * self.HR
 
         #bg for reference
@@ -141,6 +172,12 @@ class SurfaceManager:
             #Draw card and card text area
             self.draw_rect(card_color, (11 + 285 * i, base_y + 8, 275, 392), border_radius=32)
             self.draw_rect("#FFFFFF", (11 + 285 * i + 16, base_y + 8 + 16, 275 - 32, 392 - 104))
+
+            #Draw mission text
+            if missions:
+                font_color = "#000000" if not missions[card_index].is_done else "#FFB435"
+                self.draw_text_wrapped(missions[card_index].description, index_font, font_color,
+                                       (11 + 285 * i + 24, base_y + 8 + 16, 275 - 32, 392 - 104))
 
             #Draw card buttons
             self.draw_circle("#AAFFAA", 11 + 285 * i + 275 - 48, base_y + 400 - 48, 32)
