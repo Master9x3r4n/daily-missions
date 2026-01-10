@@ -1,6 +1,4 @@
-Walker
-Take a long walk
+Sample Task
+Here is some very very long text to play around and test with text wrapping and character limits. Here is some very very long text to play around and test with text wrapping and character limits.ABCDE.
 False
-Testing
-123
-True
+
