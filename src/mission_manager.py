@@ -23,6 +23,13 @@ class MissionManager:
         else:
             print(f"Failed to delete mission {name}")
 
+    def reset_missions(self):
+        for mission in self.missions:
+            mission.is_done = False
+
+    def order_missions(self):
+        self.missions = sorted(self.missions, key= lambda x: x.is_done)
+
     def print_missions(self):
         for m in self.missions:
             print(f"'{m.name}': {m.description}")
