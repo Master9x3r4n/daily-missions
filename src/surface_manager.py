@@ -167,17 +167,27 @@ class SurfaceManager:
         for i in range(card_count):
             card_color = "#F2EFEF"
             card_index = 4 * (page - 1) + i
-            index_font = pg.font.SysFont("Arial", 32)
 
             #Draw card and card text area
             self.draw_rect(card_color, (11 + 285 * i, base_y + 8, 275, 392), border_radius=32)
             self.draw_rect("#FFFFFF", (11 + 285 * i + 16, base_y + 8 + 16, 275 - 32, 392 - 104))
 
             #Draw mission text
+            TITLE_LIMIT = 14
+            DESC_LIMIT = 200
             if missions:
+                title_font = pg.font.SysFont("Arial", 32, bold = True)
+                desc_font = pg.font.SysFont("Arial", 24)
                 font_color = "#000000" if not missions[card_index].is_done else "#FFB435"
-                self.draw_text_wrapped(missions[card_index].description, index_font, font_color,
+
+                title_text = missions[card_index].name[:TITLE_LIMIT]
+                desc_text = missions[card_index].description[:DESC_LIMIT]
+
+                self.draw_text_wrapped(title_text, title_font, font_color,
                                        (11 + 285 * i + 24, base_y + 8 + 16, 275 - 32, 392 - 104))
+
+                self.draw_text_wrapped(desc_text, desc_font, font_color,
+                                       (11 + 285 * i + 24, base_y + 8 + 52, 275 - 32, 392 - 104))
 
             #Draw card buttons
             self.draw_circle("#AAFFAA", 11 + 285 * i + 275 - 48, base_y + 400 - 48, 32)

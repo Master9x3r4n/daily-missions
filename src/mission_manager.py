@@ -8,12 +8,13 @@ class MissionManager:
     def add_mission(self, name: str, desc: str, is_done: bool = False):
         self.missions.append(Mission(name, desc, is_done))
 
-    def search_mission_name(self, name: str):
+    def search_mission_name(self, name: str, warn: bool = True):
         for m in self.missions:
             if m.name == name:
                 print(f"Found mission name: {m.name}")
                 return m
-        print(f"Mission name {name} not found")
+        if warn:
+            print(f"Mission name {name} not found")
         return None
 
     def delete_mission(self, name: str):
@@ -21,14 +22,14 @@ class MissionManager:
         if m:
             self.missions.remove(m)
         else:
-            print(f"Failed to delete mission {name}")
+            print(f"Failed to delete mission {name}. Mission does not exist.")
 
     def reset_missions(self):
         for mission in self.missions:
             mission.is_done = False
 
     def order_missions(self):
-        self.missions = sorted(self.missions, key= lambda x: x.is_done)
+        self.missions = sorted(self.missions, key= lambda x: (x.is_done, x.name))
 
     def print_missions(self):
         for m in self.missions:
