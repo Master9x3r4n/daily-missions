@@ -1,4 +1,5 @@
 import pygame as pg
+from button import Button
 
 pg.init()
 pg.font.init()
@@ -11,6 +12,12 @@ class SurfaceManager:
         self.HR = self.HEIGHT / 1080
         self.SURFACE = pg.display.set_mode((self.WIDTH, self.HEIGHT))
         pg.display.set_caption("Daily Missions")
+
+        self.button_back: Button = None
+        self.button_add: Button = None
+        self.button_reset: Button = None
+        self.button_next: Button = None
+        self.init_buttons()
 
     ##################
     #     SHAPES     #
@@ -28,27 +35,8 @@ class SurfaceManager:
         text_surface = font.render(string, True, color)
         self.SURFACE.blit(text_surface, (x, y))
 
-    def draw_button (self, button_color, x, y, text = "", font_color = "#000000", font_size = 64):
-        c = self.draw_circle(button_color, x, y, 32)
-
-        # set the font style
-        font = pg.font.SysFont("Arial", font_size)
-
-        # create surface text
-        txt_surface = font.render(text, True, font_color)
-
-        # add the text to the surface
-        txt_rect = txt_surface.get_rect(center=c.center)
-
-        # blit the text onto to the surface
-        self.SURFACE.blit(txt_surface, txt_rect)
-
-        def is_clicked(event):
-            # get mouse click
-            if event.type == pg.MOUSEBUTTONDOWN:
-                if c.collidepoint(event.pos):
-                    return True
-            return False
+    def create_button (self, button_color, x, y, text = "", font_color = "#000000", font_size = 64):
+        return Button(x, y, text = text, font_size = font_size, color= button_color, text_color= font_color, surface=self.SURFACE)
 
     ##################
     #     PANELS     #
@@ -66,17 +54,46 @@ class SurfaceManager:
         self.draw_rect("#FF0000", (0, 264 * self.HR, self.WIDTH, 680 * self.HR))
 
     ##################
+    #     BUTTON     #
+    ##################
+    def draw_buttons(self):
+        self.button_back.draw()
+        self.button_next.draw()
+        self.button_add.draw()
+        self.button_reset.draw()
+
+    def add_button_pressed(self, event):
+        return self.button_add.is_clicked(event)
+
+    def reset_button_pressed(self, event):
+        return self.button_reset.is_clicked(event)
+
+    def back_button_pressed(self, event):
+        return self.button_back.is_clicked(event)
+
+    def next_button_pressed(self, event):
+        return self.button_next.is_clicked(event)
+
+    ##################
     #      MENU      #
     ##################
+    def init_buttons(self):
+        # temp buttons
+        baseline = self.HR * (264 + 680)
+        init_x = self.WIDTH / 2
+        button_color = "#EDEDED"
+        font_color = "#FFB435"
+
+        self.button_back = self.create_button(button_color, init_x - 120, baseline + 68 * self.HR, "<", font_color)
+        self.button_add = self.create_button(button_color, init_x + 40, baseline + 68 * self.HR, "+", font_color)
+        self.button_reset = self.create_button(button_color, init_x - 40, baseline + 68 * self.HR, "R", font_color, 48)
+        self.button_next = self.create_button(button_color, init_x + 120, baseline + 68 * self.HR, ">", font_color)
+
     def draw_menu(self):
         self.draw_background()
         self.draw_progress_bar()
         self.draw_mission_panel()
+        self.draw_buttons()
 
-        #temp buttons
-        baseline = self.HR * (264 + 680)
-        init_x = self.WIDTH / 2
-        self.draw_button("#FFFFFF", init_x + 40, baseline + 68 * self.HR, "+")
-        self.draw_button("#FFFFFF", init_x + 120, baseline + 68 * self.HR, ">")
-        self.draw_button("#FFFFFF", init_x - 40, baseline + 68 * self.HR, "R", font_size= 48)
-        self.draw_button("#FFFFFF", init_x - 120, baseline + 68 * self.HR, "<")
+
+

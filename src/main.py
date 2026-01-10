@@ -26,8 +26,20 @@ if __name__ == "__main__":
             # Check close program
             if event.type == pg.QUIT:
                 program_running = False
+                break
 
             #Menu events
+            if screen.next_button_pressed(event):
+                print("next")
+
+            if screen.reset_button_pressed(event):
+                print("reset")
+
+            if screen.add_button_pressed(event):
+                print("add")
+
+            if screen.back_button_pressed(event):
+                print("back")
 
         #Display events
         screen.draw_menu()
