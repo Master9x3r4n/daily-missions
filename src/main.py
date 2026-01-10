@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
             if screen.reset_button_pressed(event):
                 print("reset")
-                page = 1
+                mm.reset_missions()
 
             if screen.add_button_pressed(event):
                 print("add")
@@ -74,13 +74,14 @@ if __name__ == "__main__":
         card_index = -1
 
         #update file
+        mm.order_missions()
         mm.update_file(data_path)
 
         ####################
         # DISPLAY HANDLING #
         ####################
         # Draw Menu
-        screen.draw_menu(card_count, page)
+        screen.draw_menu(card_count, page, mm.missions)
 
         # Update display
         pg.display.update()

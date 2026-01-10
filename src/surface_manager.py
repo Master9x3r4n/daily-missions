@@ -119,7 +119,7 @@ class SurfaceManager:
         self.draw_rect("#FFFFFF", (136 * self.WR, 58 * self.HR, 1760 * self.WR, 180 * self.HR), 32)
         self.draw_circle("#7E6D4B", 136 * self.WR, 148 * self.HR, 65)
 
-    def draw_mission_panel(self, card_count = 4, page = 1):
+    def draw_mission_panel(self, card_count = 4, page = 1, missions = None):
         base_y = 264 * self.HR
 
         #bg for reference
@@ -137,17 +137,19 @@ class SurfaceManager:
 
             #Draw card buttons
             self.draw_circle("#AAFFAA", 11 + 285 * i + 275 - 48, base_y + 400 - 48, 32)
-            self.draw_text(index_font, f"O", 11 + 285 * i + 275 - 58, base_y + 400 - 66)
+            self.draw_circle("#FFFFFF", 11 + 285 * i + 275 - 48, base_y + 400 - 48, 16)
 
-            self.draw_button_index(i+1)
+            if missions and not missions[card_index].is_done:
+                self.draw_button_index(i+1)
+                self.draw_circle("#FFB435", 11 + 285 * i + 275 - 48, base_y + 400 - 48, 16)
 
     ##################
     #      MENU      #
     ##################
-    def draw_menu(self, card_count = 4, page = 1):
+    def draw_menu(self, card_count = 4, page = 1, missions = None):
         self.draw_background()
         self.draw_progress_bar()
-        self.draw_mission_panel(card_count, page)
+        self.draw_mission_panel(card_count, page, missions)
         self.draw_menu_buttons()
 
 
