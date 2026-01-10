@@ -11,15 +11,12 @@
 import pygame as pg
 import math
 from mission_manager import MissionManager
-from surface_manager import SurfaceManager
+from surface_manager import SurfaceManager, TITLE_LIMIT, DESC_LIMIT
 
 data_path = "data.txt"
 pg.init()
 
 def add_mission(mm: MissionManager):
-    TITLE_LIMIT = 14
-    DESC_LIMIT = 200
-
     print("###########################")
     print("#    ADD A NEW MISSION    #")
     print("###########################")

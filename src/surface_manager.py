@@ -5,6 +5,9 @@ from mission_manager import Mission
 pg.init()
 pg.font.init()
 
+TITLE_LIMIT = 16
+DESC_LIMIT = 200
+
 class SurfaceManager:
     def __init__(self):
         self.WIDTH = 1152
@@ -173,8 +176,6 @@ class SurfaceManager:
             self.draw_rect("#FFFFFF", (11 + 285 * i + 16, base_y + 8 + 16, 275 - 32, 392 - 104))
 
             #Draw mission text
-            TITLE_LIMIT = 14
-            DESC_LIMIT = 200
             if missions:
                 title_font = pg.font.SysFont("Arial", 32, bold = True)
                 desc_font = pg.font.SysFont("Arial", 24)
