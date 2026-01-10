@@ -114,10 +114,17 @@ class SurfaceManager:
         # bg color
         self.draw_rect("#D9D9D9", (0, 0, self.WIDTH, self.HEIGHT))
 
-    def draw_progress_bar(self):
+    def draw_progress_bar(self, missions, completed):
         #progress bar
+        progress = completed / len(missions)
+        offset = 16
         self.draw_rect("#FFFFFF", (136 * self.WR, 58 * self.HR, 1760 * self.WR, 180 * self.HR), 32)
+        self.draw_rect("#B4B4B4", (136 * self.WR, 58 * self.HR + offset, 1760 * self.WR - 16, 180 * self.HR -offset * 2), 32)
+        self.draw_rect("#FFB435", (136 * self.WR, 58 * self.HR + offset * 2,
+                                   (1760 * self.WR - 32) * progress, 180 * self.HR - offset * 4), 32)
+
         self.draw_circle("#7E6D4B", 136 * self.WR, 148 * self.HR, 65)
+
 
     def draw_mission_panel(self, card_count = 4, page = 1, missions = None):
         base_y = 264 * self.HR
@@ -146,9 +153,9 @@ class SurfaceManager:
     ##################
     #      MENU      #
     ##################
-    def draw_menu(self, card_count = 4, page = 1, missions = None):
+    def draw_menu(self, card_count = 4, page = 1, missions = None, completed = 0):
         self.draw_background()
-        self.draw_progress_bar()
+        self.draw_progress_bar(missions, completed)
         self.draw_mission_panel(card_count, page, missions)
         self.draw_menu_buttons()
 

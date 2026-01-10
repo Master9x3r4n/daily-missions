@@ -81,7 +81,7 @@ if __name__ == "__main__":
         # DISPLAY HANDLING #
         ####################
         # Draw Menu
-        screen.draw_menu(card_count, page, mm.missions)
+        screen.draw_menu(card_count, page, mm.missions, mm.get_progress())
 
         # Update display
         pg.display.update()
