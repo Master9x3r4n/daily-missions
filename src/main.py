@@ -105,7 +105,8 @@ if __name__ == "__main__":
             index_button = screen.index_button_pressed(event)
             if index_button:
                 card_index = 4 * (page - 1) + index_button - 1
-                #print(card_index)
+                if len(mm.missions) < card_index + 1:
+                    card_index = -1
 
         ####################
         #  LOGIC HANDLING  #
